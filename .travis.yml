@@ -7,7 +7,7 @@ jdk:
 install:
   - sudo apt-get update
   - sudo apt-get install libc6-i386
-  - (git clone git://github.com/frc-4931/2014 && mv 2014/sunspotfrcsdk ~)
+  - (git clone git://github.com/HarkerRobo/sunspotfrcsdk && mv sunspotfrcsdk ~)
 
 script:
   - ant -Dsunspot.home="`echo ~`"/sunspotfrcsdk jar-app
