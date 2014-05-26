@@ -37,12 +37,9 @@ public class MathUtil {
      * @param x the base
      * @param power the exponent
      * @return x^power
+     * @author Ben H. 
      */
     public static double power(double x, int power) {
-        if (power == 0) return 1;
-        if (power < 0) return 1 / power(x, -power);
-        
-        // Author of this part: Ben H.
         // This is a more efficient method of doing power than 1 at a time for large exponents
         // Runs in O(log2(power)) time  
         
