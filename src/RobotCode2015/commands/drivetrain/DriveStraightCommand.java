@@ -34,6 +34,7 @@ public class DriveStraightCommand extends AutomaticDriveCommand {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
+	// XXX: this may or may not work.  We need to test it.
 	protected void execute() {
 		double ratio = drivetrain.getLeftRate() / drivetrain.getRightRate();
 
