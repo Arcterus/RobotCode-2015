@@ -138,7 +138,7 @@
 <span class="sourceLineNo">130</span>        Vector3D offsetPosition = desiredPosition.subtract(currentPosition);<a name="line.130"></a>
 <span class="sourceLineNo">131</span><a name="line.131"></a>
 <span class="sourceLineNo">132</span>        //If the robot is close enough end command, break and return true<a name="line.132"></a>
-<span class="sourceLineNo">133</span>        if(offsetPosition.magnitude() &lt; .1) return true;<a name="line.133"></a>
+<span class="sourceLineNo">133</span>        if(offsetPosition.magnitude() &lt; Constants.Drivetrain.driveToPointThreshold) return true;<a name="line.133"></a>
 <span class="sourceLineNo">134</span><a name="line.134"></a>
 <span class="sourceLineNo">135</span>        //get our current velocity and calculate theta<a name="line.135"></a>
 <span class="sourceLineNo">136</span>        Vector3D currentVelocity = new Vector3D(<a name="line.136"></a>

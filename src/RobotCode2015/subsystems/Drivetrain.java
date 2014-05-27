@@ -130,7 +130,7 @@ public class Drivetrain extends Subsystem {
 	Vector3D offsetPosition = desiredPosition.subtract(currentPosition);
 
 	//If the robot is close enough end command, break and return true
-	if(offsetPosition.magnitude() < .1) return true;
+	if(offsetPosition.magnitude() < Constants.Drivetrain.driveToPointThreshold) return true;
 
 	//get our current velocity and calculate theta
 	Vector3D currentVelocity = new Vector3D(

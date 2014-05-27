@@ -8,13 +8,18 @@ import RobotCode2015.OI;
 import RobotCode2015.commands.CommandBase;
 
 /**
- *
+ * Framework that should be inherited by any Command that autonomously utilizes the drivetrain.
  * @author Manan
  */
 public abstract class AutomaticDriveCommand extends CommandBase {
     
+    public AutomaticDriveCommand(String name) {
+        super (name);
+    }
+    
     // Called once after isFinished returns true
     protected void end() {
+        super.end();
 	OI.manualDriveRestore.start();
         drivetrain.stop();
     }

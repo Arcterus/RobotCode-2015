@@ -3,7 +3,7 @@ package RobotCode2015.commands.drivetrain;
 
 
 /**
- *
+ * Drives the robot at a given speed.
  * @author farzin
  */
 public class DriveCommand extends AutomaticDriveCommand {
@@ -11,7 +11,8 @@ public class DriveCommand extends AutomaticDriveCommand {
     private double right, left;
 
     public DriveCommand(double left, double right) {
-	requires(drivetrain);
+	super ("Drive Command");
+        requires(drivetrain);
 	this.right = right;
 	this.left = left;
     }

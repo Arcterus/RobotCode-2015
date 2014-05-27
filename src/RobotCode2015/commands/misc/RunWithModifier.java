@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * A command to run another command if a given button is pressed.
  * @author Manan
  */
 public class RunWithModifier extends CommandBase {
@@ -17,6 +17,7 @@ public class RunWithModifier extends CommandBase {
     private final Button button;
     
     public RunWithModifier(Button button, Command command) {
+        super ("Run with Modifier Command");
         this.button = button;
         this.command = command;
     }
@@ -37,6 +38,7 @@ public class RunWithModifier extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        super.end();
     }
 
     // Called when another command which requires one or more of the same

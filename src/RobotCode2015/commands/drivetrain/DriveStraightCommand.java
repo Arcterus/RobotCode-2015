@@ -4,7 +4,7 @@ import RobotCode2015.subsystems.Drivetrain;
 import RobotCode2015.Constants;
 
 /**
- *
+ * Drive straight until interrupted
  * @author Manan
  * @author Arcterus
  */
@@ -14,23 +14,36 @@ public class DriveStraightCommand extends AutomaticDriveCommand {
 	private double leftStart, rightStart;
 
 	private double left, right;
-
+        
+        /**
+         * Initialize a new DriveStraightCommand with speed .5 (default)
+         */
 	public DriveStraightCommand() {
-		requires(drivetrain);
+            super ("Drive Straight Command");
+            requires(drivetrain);
+            speed = .5;
 	}
+        
+        /**
+         * Initialize a new DriveStraightCommand with a custom speed.
+         * @param speed The speed at which to drive.
+         */
+        public DriveStraightCommand(double speed) {
+            super ("Drive Straight Command");
+            requires(drivetrain);
+            this.speed = speed;
+        }
 
 	protected void initialize() { }
 
 	public void start() {
 		super.start();
-		speed = .5;
-		left = speed;
-		right = speed;
+		left = right = speed;
+		//These don't seem to be used anywhere else:
+                //leftStart = drivetrain.getLeftDistance();
+		//rightStart = drivetrain.getRightDistance();
 
-		leftStart = drivetrain.getLeftDistance();
-		rightStart = drivetrain.getRightDistance();
-
-		drivetrain.driveRaw(speed, speed);
+		drivetrain.driveRaw(speed, speed); //Why are we using drive raw as opposed to regular drive?
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -56,7 +69,7 @@ public class DriveStraightCommand extends AutomaticDriveCommand {
 		drivetrain.driveRaw(left, right);
 	}
 
-	// Make this return true when this Command no longer needs to run execute()
+	// Do we really want this to run forever until interrupted?
 	protected boolean isFinished() {
 		return false;
 	}

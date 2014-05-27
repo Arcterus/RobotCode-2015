@@ -4,12 +4,13 @@ import RobotCode2015.commands.CommandBase;
 
 
 /**
- *
+ * Continually scales driving speed for smooth driving.
  * @author Brian Chan
  */
 public class DrivetrainAccelerationCommand extends CommandBase {
 
     public DrivetrainAccelerationCommand() {
+        super ("Drivetrain Acceleration Command");
     }
     
     /**
@@ -36,6 +37,7 @@ public class DrivetrainAccelerationCommand extends CommandBase {
      * Called once after isFinished returns true
      */
     protected void end() {
+        super.end();
     }
     
     /**

@@ -34,7 +34,7 @@ public class Constants {
         public static double encoderRateScaling;
         public static double manualOverrideResetThreshold, manualOverrideThreshold;
         public static double turnToAngleError;
-        public static double driveToPointScaling;
+        public static double driveToPointScaling, driveToPointThreshold;
         public static boolean leftBackMotorFlipped, leftFrontMotorFlipped, rightBackMotorFlipped, rightFrontMotorFlipped;  
         
         private static void updateConstants () { //TODO: Test for proper values
@@ -64,8 +64,9 @@ public class Constants {
             //The accepted error when attempting to turn to a given angle.
             turnToAngleError = prefs.getDouble("dt_turnToAngleError", Math.PI / 12);
             
-            //Scale factor for the drive to point command.
+            //Scale factor for the drive to point command and distance threshold for offset.
             driveToPointScaling = prefs.getDouble("dt_driveToPointScaling", .1);
+            driveToPointThreshold = prefs.getDouble("dt_driveToPointThreshold", .1);
                     
             //Whether or not to flip the directions of the motors.
             leftBackMotorFlipped = prefs.getBoolean("dt_leftBackFlipped", false);

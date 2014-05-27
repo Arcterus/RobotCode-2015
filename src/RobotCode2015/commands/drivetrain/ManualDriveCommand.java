@@ -11,12 +11,13 @@ import RobotCode2015.commands.CommandBase;
 import RobotCode2015.wrappers.GamePadWrapper;
 
 /**
- *
+ * Takes the user's inputs from joysticks for driving.
  * @author neymikajain
  */
 public class ManualDriveCommand extends CommandBase {
 
     public ManualDriveCommand() {
+        super ("Manual Drive Command");
         requires(drivetrain);
     }
 
@@ -27,7 +28,7 @@ public class ManualDriveCommand extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         GamePadWrapper gamepad = RobotCode2015.OI.gamepad1;
-        if (gamepad.getRawButton(7)) {
+        if (gamepad.getRawButton(7)) { //Modifier for slow driving
             drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.lowSpeedScaling,
                     gamepad.getRightY() * Constants.Drivetrain.lowSpeedScaling);
         } else {
@@ -44,6 +45,7 @@ public class ManualDriveCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        super.end();
         drivetrain.setBusy(true);
         //starts the manualDriveRestore method - continually checks for joystick updates
         OI.manualDriveRestore.start();

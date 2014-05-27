@@ -36,14 +36,10 @@ public abstract class CommandBase extends Command {
         super(name);
         timerLength = -1;
     }
-
-    public CommandBase() {
-        super();
-        timerLength = -1;
-    }
     
     public void start() {
         super.start();
+        System.out.println("Started " + this.getName());
         startTime = Timer.getFPGATimestamp(); //The system's time clock in seconds.
     }
     
@@ -68,5 +64,9 @@ public abstract class CommandBase extends Command {
      */
     public void resetTimer() {
         startTime = Timer.getFPGATimestamp();
+    }
+    
+    protected void end() {
+        System.out.println("Finished " + this.getName());
     }
 }

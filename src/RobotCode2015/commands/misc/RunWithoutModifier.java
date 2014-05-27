@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * A command to run another command if a given button is not pressed.
  * @author Manan
  */
 public class RunWithoutModifier extends CommandBase {
@@ -17,6 +17,7 @@ public class RunWithoutModifier extends CommandBase {
     private final Button button;
     
     public RunWithoutModifier(Button button, Command command) {
+        super ("Run without Modifer Command");
         this.button = button;
         this.command = command;
     }
@@ -37,6 +38,7 @@ public class RunWithoutModifier extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        super.end();
     }
 
     // Called when another command which requires one or more of the same

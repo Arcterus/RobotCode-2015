@@ -10,12 +10,14 @@ import RobotCode2015.commands.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Updates the constants that the robot uses
+ * @see Constants
  * @author neymikajain
  */
 public class UpdateConstantsCommand extends CommandBase {
     
     public UpdateConstantsCommand() {
+        super ("Update Constants Command");
     }
 
     // Called just before this Command runs the first time
@@ -35,6 +37,7 @@ public class UpdateConstantsCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        super.end();
     }
 
     // Called when another command which requires one or more of the same

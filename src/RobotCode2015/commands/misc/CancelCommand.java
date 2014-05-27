@@ -12,7 +12,8 @@ public class CancelCommand extends CommandBase {
     private Command c;
 
     public CancelCommand(Command c) {
-	this.c = c;
+	super ("Cancel Command");
+        this.c = c;
     }
 
     // Called just before this Command runs the first time
@@ -31,6 +32,7 @@ public class CancelCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        super.end();
     }
 
     // Called when another command which requires one or more of the same

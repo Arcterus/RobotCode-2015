@@ -9,7 +9,7 @@ import RobotCode2015.subsystems.Drivetrain;
 import RobotCode2015.Constants;
 
 /**
- *
+ * Turns the robot to a given angle 
  * @author Benjamin
  */
 public class TurnToAngleCommand extends AutomaticDriveCommand {
@@ -19,9 +19,14 @@ public class TurnToAngleCommand extends AutomaticDriveCommand {
     // until it's closer than the error threshold.
     // The error threshold is actually in Constants.
     private static final double P = 1.0;
-
+    
+    /**
+     * Initializes a new command
+     * @param radiansToTurn The angle to turn to in radians
+     */
     public TurnToAngleCommand(double radiansToTurn) {
-	requires(drivetrain);
+	super ("Turn to Angle Command");
+        requires(drivetrain);
 	target = drivetrain.getYawAngle() + radiansToTurn;
     }
 

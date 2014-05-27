@@ -7,7 +7,7 @@ import RobotCode2015.commands.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * Drive the robot at a given speed for a certain amount of time.
  * @author Manan
  */
 public class DriveForTimeCommand extends AutomaticDriveCommand {
@@ -15,11 +15,19 @@ public class DriveForTimeCommand extends AutomaticDriveCommand {
     private boolean isStopped;
     
     public DriveForTimeCommand(double left, double right, double timeout) {
+        super ("Drive for Time Command");
         requires(drivetrain);
         this.right = right;
         this.left = left;
         isStopped = true;
 	setTimerLength(timeout);
+    }
+    
+    //Called each time this command is started.
+    public void start() {
+        System.out.println("Started " + this.getName());
+        isStopped = false;
+        this.resetTimer();
     }
 
     // Called just before this Command runs the first time
@@ -28,13 +36,8 @@ public class DriveForTimeCommand extends AutomaticDriveCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if(isStopped) {
-            System.out.println("just started");
-            isStopped = false;
-            startTime = Timer.getFPGATimestamp(); //hack to restart timer
-        }
-        
-        drivetrain.drive(left, right);
+        if (!isStopped)
+            drivetrain.drive(left, right);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -44,13 +47,14 @@ public class DriveForTimeCommand extends AutomaticDriveCommand {
 
     // Called once after isFinished returns true
     protected void end() {
-        System.out.println("finished driving");
+        super.end();
+        System.out.println("Finished " + this.getName());
         isStopped = true;
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        end();
+        this.end();
     }
 }
