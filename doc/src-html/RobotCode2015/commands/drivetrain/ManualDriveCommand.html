@@ -37,11 +37,11 @@
 <span class="sourceLineNo">029</span>    protected void execute() {<a name="line.29"></a>
 <span class="sourceLineNo">030</span>        GamePadWrapper gamepad = RobotCode2015.OI.gamepad1;<a name="line.30"></a>
 <span class="sourceLineNo">031</span>        if (gamepad.getRawButton(7)) { //Modifier for slow driving<a name="line.31"></a>
-<span class="sourceLineNo">032</span>            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.lowSpeedScaling,<a name="line.32"></a>
-<span class="sourceLineNo">033</span>                    gamepad.getRightY() * Constants.Drivetrain.lowSpeedScaling);<a name="line.33"></a>
+<span class="sourceLineNo">032</span>            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.LOW_SPEED_SCALING,<a name="line.32"></a>
+<span class="sourceLineNo">033</span>                    gamepad.getRightY() * Constants.Drivetrain.LOW_SPEED_SCALING);<a name="line.33"></a>
 <span class="sourceLineNo">034</span>        } else {<a name="line.34"></a>
-<span class="sourceLineNo">035</span>            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.highSpeedScaling,<a name="line.35"></a>
-<span class="sourceLineNo">036</span>                    gamepad.getRightY() * Constants.Drivetrain.highSpeedScaling);<a name="line.36"></a>
+<span class="sourceLineNo">035</span>            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.HIGH_SPEED_SCALING,<a name="line.35"></a>
+<span class="sourceLineNo">036</span>                    gamepad.getRightY() * Constants.Drivetrain.HIGH_SPEED_SCALING);<a name="line.36"></a>
 <span class="sourceLineNo">037</span>        }<a name="line.37"></a>
 <span class="sourceLineNo">038</span><a name="line.38"></a>
 <span class="sourceLineNo">039</span>    }<a name="line.39"></a>

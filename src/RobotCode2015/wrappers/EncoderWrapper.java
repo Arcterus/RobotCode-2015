@@ -45,7 +45,7 @@ public class EncoderWrapper extends Encoder {
     public void updateRate() {
 	double curRate = super.getRate();
 	if(!Double.isNaN(curRate))
-	    rate += (curRate - rate) / Constants.Drivetrain.encoderRateScaling;
+	    rate += (curRate - rate) / Constants.Drivetrain.ENCODER_RATE_SCALING;
     }
 
 }

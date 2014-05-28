@@ -1,6 +1,8 @@
 
 package RobotCode2015;
 
+import RobotCode2015.commands.drivetrain.DriveForTimeCommand;
+import RobotCode2015.commands.drivetrain.DriveStraightCommand;
 import RobotCode2015.commands.drivetrain.ManualDriveCommand;
 import RobotCode2015.commands.drivetrain.RestoreManualDriveCommand;
 import RobotCode2015.wrappers.GamePadWrapper;
@@ -21,5 +23,10 @@ public class OI {
     
     public static Joystick joy1;
     public static Joystick joy2;
+    
+    public OI () {
+        gamepad1 = new GamePadWrapper(RobotMap.Gamepad.GAMEPAD1_PORT);
+        gamepad1.getButtonA().whenPressed(new DriveStraightCommand(.5, 3));
+    }
 }
 

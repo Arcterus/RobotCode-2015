@@ -4,7 +4,7 @@ import RobotCode2015.subsystems.Drivetrain;
 import RobotCode2015.Constants;
 
 /**
- * Drive straight until interrupted
+ * Drive straight until interrupted or timeout
  * @author Manan
  * @author Arcterus
  */
@@ -32,6 +32,18 @@ public class DriveStraightCommand extends AutomaticDriveCommand {
             super ("Drive Straight Command");
             requires(drivetrain);
             this.speed = speed;
+        }
+        
+        /**
+         * Initialize a new DriveStraightCommand with a custom speed and duration.
+         * @param speed The speed at which to drive.
+         * @param time The duration of the command.
+         */
+        public DriveStraightCommand(double speed, double time) {
+            super ("Drive Straight Command");
+            requires(drivetrain);
+            this.speed = speed;
+            timerLength = time;
         }
 
 	protected void initialize() { }
@@ -70,7 +82,13 @@ public class DriveStraightCommand extends AutomaticDriveCommand {
 	}
 
 	// Do we really want this to run forever until interrupted?
+        /**
+         * If it is set to run indefinitely, <code>timerLength</code> will equal to -1 and thus 
+         * is finished will return false. Otherwise also check if the duration has ended before
+         * returning <code>true</code>.
+         * @return <code>true</code> if the Command has a fixed duration and has run through it.
+         */
 	protected boolean isFinished() {
-		return false;
+		return (timerLength >= 0) && (isTimerFinished());
 	}
 }
