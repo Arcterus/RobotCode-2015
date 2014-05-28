@@ -11,8 +11,11 @@ import edu.wpi.first.wpilibj.Preferences;
 /**
  *
  * @author atierno
+ * @author Manan 
  */
 public final class Constants {
+    
+    private Constants() {}
     
     private static Preferences prefs; 
     
