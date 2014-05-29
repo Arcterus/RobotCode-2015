@@ -1,1 +1,1 @@
-This is yet ANOTHER test. Please work. Please delete me.					
+With a correctly set up hook, let's see what happens.
