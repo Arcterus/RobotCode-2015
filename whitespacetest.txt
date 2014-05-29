@@ -1,1 +1,1 @@
-							Trying another hook.
+							Commit message hook test.
