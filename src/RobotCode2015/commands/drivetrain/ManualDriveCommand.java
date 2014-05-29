@@ -29,11 +29,11 @@ public class ManualDriveCommand extends CommandBase {
     protected void execute() {
         GamePadWrapper gamepad = RobotCode2015.OI.gamepad1;
         if (gamepad.getRawButton(7)) { //Modifier for slow driving
-            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.lowSpeedScaling,
-                    gamepad.getRightY() * Constants.Drivetrain.lowSpeedScaling);
+            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.LOW_SPEED_SCALING,
+                    gamepad.getRightY() * Constants.Drivetrain.LOW_SPEED_SCALING);
         } else {
-            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.highSpeedScaling,
-                    gamepad.getRightY() * Constants.Drivetrain.highSpeedScaling);
+            drivetrain.drive(gamepad.getLeftY() * Constants.Drivetrain.HIGH_SPEED_SCALING,
+                    gamepad.getRightY() * Constants.Drivetrain.HIGH_SPEED_SCALING);
         }
 
     }

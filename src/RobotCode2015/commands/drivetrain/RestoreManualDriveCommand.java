@@ -34,7 +34,7 @@ public class RestoreManualDriveCommand extends CommandBase {
      * automatic command.
      */
     protected void execute() {
-	if(checkJoyMagMinLessThan(Constants.Drivetrain.manualOverrideResetThreshold))
+	if(checkJoyMagMinLessThan(Constants.Drivetrain.MANUAL_OVERRIDE_RESET_THRESHOLD))
             hasReset = true;
     }
 
@@ -43,7 +43,7 @@ public class RestoreManualDriveCommand extends CommandBase {
      * @return <code>true</code> if either the drivetrain is free or the user has forced an override (pushed down hard on the joysticks)
      */
     protected boolean isFinished() {
-	return !drivetrain.isBusy() || (hasReset && checkJoyMagMaxGreaterThan(Constants.Drivetrain.manualOverrideThreshold));
+	return !drivetrain.isBusy() || (hasReset && checkJoyMagMaxGreaterThan(Constants.Drivetrain.MANUAL_OVERRIDE_THRESHOLD));
     }
 
     // Called once after isFinished returns true

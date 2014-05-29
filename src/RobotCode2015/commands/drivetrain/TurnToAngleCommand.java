@@ -57,6 +57,6 @@ public class TurnToAngleCommand extends AutomaticDriveCommand {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
 	double currentAngle = drivetrain.getYawAngle();
-	return Math.abs(target - currentAngle) < Constants.Drivetrain.turnToAngleError;
+	return Math.abs(target - currentAngle) < Constants.Drivetrain.TURN_TO_ANGLE_ERROR;
     }
 }

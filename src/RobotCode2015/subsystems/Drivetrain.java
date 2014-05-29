@@ -16,30 +16,34 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drivetrain extends Subsystem {
     
-    private TalonWrapper leftBackMotor;
-    private TalonWrapper leftFrontMotor;
-    private TalonWrapper rightBackMotor;
-    private TalonWrapper rightFrontMotor;
+    private final TalonWrapper leftBackMotor;
+    private final TalonWrapper leftMiddleMotor;
+    private final TalonWrapper leftFrontMotor;
+    private final TalonWrapper rightBackMotor;
+    private final TalonWrapper rightMiddleMotor;
+    private final TalonWrapper rightFrontMotor;
     
-    private Encoder leftEnc;
-    private Encoder rightEnc;
+    private final Encoder leftEnc;
+    private final Encoder rightEnc;
     
-    private Gyro gyro;
+    private final Gyro gyro;
     
     private double leftTargetSpeed, rightTargetSpeed, leftCurrSpeed, rightCurrSpeed;
     
     private boolean isBusy;
     
     public Drivetrain () {
-        leftBackMotor   = new TalonWrapper (RobotMap.Drivetrain.leftBackMotorChannel, Constants.Drivetrain.leftBackMotorFlipped);
-        leftFrontMotor  = new TalonWrapper (RobotMap.Drivetrain.leftFrontMotorChannel, Constants.Drivetrain.leftFrontMotorFlipped);
-        rightBackMotor  = new TalonWrapper (RobotMap.Drivetrain.rightBackMotorChannel, Constants.Drivetrain.rightBackMotorFlipped);
-        rightFrontMotor = new TalonWrapper (RobotMap.Drivetrain.rightFrontMotorChannel, Constants.Drivetrain.rightFrontMotorFlipped);
+        leftBackMotor   = new TalonWrapper (RobotMap.Drivetrain.LEFT_BACK_MOTOR_CHANNEL, Constants.Drivetrain.LEFT_BACK_MOTOR_FLIPPED);
+        leftMiddleMotor = new TalonWrapper (RobotMap.Drivetrain.LEFT_MIDDLE_MOTOR_CHANNEL, Constants.Drivetrain.LEFT_MIDDLE_MOTOR_FLIPPED);
+        leftFrontMotor  = new TalonWrapper (RobotMap.Drivetrain.LEFT_FRONT_MOTOR_CHANNEL, Constants.Drivetrain.LEFT_FRONT_MOTOR_FLIPPED);
+        rightBackMotor  = new TalonWrapper (RobotMap.Drivetrain.RIGHT_BACK_MOTOR_CHANNEL, Constants.Drivetrain.RIGHT_BACK_MOTOR_FLIPPED);
+        rightMiddleMotor = new TalonWrapper (RobotMap.Drivetrain.RIGHT_MIDDLE_MOTOR_CHANNEL, Constants.Drivetrain.RIGHT_MIDDLE_MOTOR_FLIPPED);
+        rightFrontMotor = new TalonWrapper (RobotMap.Drivetrain.RIGHT_FRONT_MOTOR_CHANNEL, Constants.Drivetrain.RIGHT_FRONT_MOTOR_FLIPPED);
         
-        leftEnc  = new Encoder (RobotMap.Drivetrain.leftEncChannelA, RobotMap.Drivetrain.leftEncChannelB);
-        rightEnc = new Encoder (RobotMap.Drivetrain.rightEncChannelA, RobotMap.Drivetrain.rightEncChannelB);
+        leftEnc  = new Encoder (RobotMap.Drivetrain.LEFT_ENC_CHANNEL_A, RobotMap.Drivetrain.LEFT_ENC_CHANNEL_B);
+        rightEnc = new Encoder (RobotMap.Drivetrain.RIGHT_ENC_CHANNEL_A, RobotMap.Drivetrain.RIGHT_ENC_CHANNEL_B);
         
-        gyro = new Gyro(RobotMap.Drivetrain.gyroChannel);
+        gyro = new Gyro(RobotMap.Drivetrain.GYRO_CHANNEL);
         
         leftTargetSpeed = rightTargetSpeed = leftCurrSpeed = rightCurrSpeed = 0;
         
@@ -69,8 +73,8 @@ public class Drivetrain extends Subsystem {
      * Moves the robot's speed closer to the target value.
      */
     public void updateDrive () {
-        leftCurrSpeed = scale (leftCurrSpeed, leftTargetSpeed, Constants.Drivetrain.accelerationScaling, Constants.Drivetrain.accelerationThreshold);
-        rightCurrSpeed = scale (rightCurrSpeed, rightTargetSpeed, Constants.Drivetrain.accelerationScaling, Constants.Drivetrain.accelerationThreshold);
+        leftCurrSpeed = scale (leftCurrSpeed, leftTargetSpeed, Constants.Drivetrain.ACCELERATION_SCALING, Constants.Drivetrain.ACCELERATION_THRESHOLD);
+        rightCurrSpeed = scale (rightCurrSpeed, rightTargetSpeed, Constants.Drivetrain.ACCELERATION_SCALING, Constants.Drivetrain.ACCELERATION_THRESHOLD);
         driveRaw (leftCurrSpeed, rightCurrSpeed);
     }
 
@@ -88,8 +92,10 @@ public class Drivetrain extends Subsystem {
      */
     public void driveRaw (double speed) {
         leftBackMotor.set(speed);
+        leftMiddleMotor.set(speed);
         leftFrontMotor.set(speed);
         rightBackMotor.set(speed);
+        rightMiddleMotor.set(speed);
         rightFrontMotor.set(speed);
     }
     
@@ -100,8 +106,10 @@ public class Drivetrain extends Subsystem {
      */
     public void driveRaw (double left, double right) {
         leftBackMotor.set(left);
+        leftMiddleMotor.set(left);
         leftFrontMotor.set(left);
         rightBackMotor.set(right);
+        rightMiddleMotor.set(right);
         rightFrontMotor.set(right);
     }
     
@@ -130,7 +138,7 @@ public class Drivetrain extends Subsystem {
 	Vector3D offsetPosition = desiredPosition.subtract(currentPosition);
 
 	//If the robot is close enough end command, break and return true
-	if(offsetPosition.magnitude() < Constants.Drivetrain.driveToPointThreshold) return true;
+	if(offsetPosition.magnitude() < Constants.Drivetrain.DRIVE_TO_POINT_THRESHOLD) return true;
 
 	//get our current velocity and calculate theta
 	Vector3D currentVelocity = new Vector3D(
@@ -140,7 +148,7 @@ public class Drivetrain extends Subsystem {
 	double theta = offsetPosition.normalize().cross(currentVelocity.normalize()).direction();
 
 	//drive based on theta and speed
-	drive(speed + theta * Constants.Drivetrain.driveToPointScaling, speed - theta * Constants.Drivetrain.driveToPointScaling); //TODO: does this break with acceleration accelerationScaling
+	drive(speed + theta * Constants.Drivetrain.DRIVE_TO_POINT_SCALING, speed - theta * Constants.Drivetrain.DRIVE_TO_POINT_SCALING); //TODO: does this break with acceleration ACCELERATION_SCALING
 	return false;
     }
     

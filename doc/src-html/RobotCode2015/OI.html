@@ -9,28 +9,35 @@
 <pre><span class="sourceLineNo">001</span><a name="line.1"></a>
 <span class="sourceLineNo">002</span>package RobotCode2015;<a name="line.2"></a>
 <span class="sourceLineNo">003</span><a name="line.3"></a>
-<span class="sourceLineNo">004</span>import RobotCode2015.commands.drivetrain.ManualDriveCommand;<a name="line.4"></a>
-<span class="sourceLineNo">005</span>import RobotCode2015.commands.drivetrain.RestoreManualDriveCommand;<a name="line.5"></a>
-<span class="sourceLineNo">006</span>import RobotCode2015.wrappers.GamePadWrapper;<a name="line.6"></a>
-<span class="sourceLineNo">007</span>import edu.wpi.first.wpilibj.Joystick;<a name="line.7"></a>
-<span class="sourceLineNo">008</span>import edu.wpi.first.wpilibj.buttons.Button;<a name="line.8"></a>
-<span class="sourceLineNo">009</span>import edu.wpi.first.wpilibj.buttons.DigitalIOButton;<a name="line.9"></a>
-<span class="sourceLineNo">010</span><a name="line.10"></a>
-<span class="sourceLineNo">011</span>/**<a name="line.11"></a>
-<span class="sourceLineNo">012</span> * This class is the glue that binds the controls on the physical operator<a name="line.12"></a>
-<span class="sourceLineNo">013</span> * interface to the commands and command groups that allow control of the robot.<a name="line.13"></a>
-<span class="sourceLineNo">014</span> */<a name="line.14"></a>
-<span class="sourceLineNo">015</span>public class OI {<a name="line.15"></a>
-<span class="sourceLineNo">016</span>    public static RestoreManualDriveCommand manualDriveRestore = new RestoreManualDriveCommand();<a name="line.16"></a>
-<span class="sourceLineNo">017</span>    public static ManualDriveCommand manualDrive = new ManualDriveCommand();<a name="line.17"></a>
-<span class="sourceLineNo">018</span>    <a name="line.18"></a>
-<span class="sourceLineNo">019</span>    public static GamePadWrapper gamepad1;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>    public static GamePadWrapper gamepad2;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>    <a name="line.21"></a>
-<span class="sourceLineNo">022</span>    public static Joystick joy1;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>    public static Joystick joy2;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>}<a name="line.24"></a>
-<span class="sourceLineNo">025</span><a name="line.25"></a>
+<span class="sourceLineNo">004</span>import RobotCode2015.commands.drivetrain.DriveForTimeCommand;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import RobotCode2015.commands.drivetrain.DriveStraightCommand;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import RobotCode2015.commands.drivetrain.ManualDriveCommand;<a name="line.6"></a>
+<span class="sourceLineNo">007</span>import RobotCode2015.commands.drivetrain.RestoreManualDriveCommand;<a name="line.7"></a>
+<span class="sourceLineNo">008</span>import RobotCode2015.wrappers.GamePadWrapper;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>import edu.wpi.first.wpilibj.Joystick;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>import edu.wpi.first.wpilibj.buttons.Button;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>import edu.wpi.first.wpilibj.buttons.DigitalIOButton;<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span>/**<a name="line.13"></a>
+<span class="sourceLineNo">014</span> * This class is the glue that binds the controls on the physical operator<a name="line.14"></a>
+<span class="sourceLineNo">015</span> * interface to the commands and command groups that allow control of the robot.<a name="line.15"></a>
+<span class="sourceLineNo">016</span> */<a name="line.16"></a>
+<span class="sourceLineNo">017</span>public class OI {<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    public static RestoreManualDriveCommand manualDriveRestore = new RestoreManualDriveCommand();<a name="line.18"></a>
+<span class="sourceLineNo">019</span>    public static ManualDriveCommand manualDrive = new ManualDriveCommand();<a name="line.19"></a>
+<span class="sourceLineNo">020</span>    <a name="line.20"></a>
+<span class="sourceLineNo">021</span>    public static GamePadWrapper gamepad1;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>    public static GamePadWrapper gamepad2;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>    <a name="line.23"></a>
+<span class="sourceLineNo">024</span>    public static Joystick joy1;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>    public static Joystick joy2;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>    <a name="line.26"></a>
+<span class="sourceLineNo">027</span>    public OI () {<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        gamepad1 = new GamePadWrapper(RobotMap.Gamepad.GAMEPAD1_PORT);<a name="line.28"></a>
+<span class="sourceLineNo">029</span>        gamepad1.getButtonA().whenPressed(new DriveStraightCommand(.5, 3));<a name="line.29"></a>
+<span class="sourceLineNo">030</span>    }<a name="line.30"></a>
+<span class="sourceLineNo">031</span>}<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
 
 
 
