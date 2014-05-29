@@ -1,1 +1,1 @@
-This is another test. DELETE ME?		
+With a correctly set up hook, let's see what happens.
