@@ -14,6 +14,7 @@ public class Vector3D
      * field towards the other alliance side of the field.
      */
     private double X;
+    public double getX() {return X;}
 
     /**
      * The Y-position of the point.
@@ -21,6 +22,7 @@ public class Vector3D
      * parallel to the alliance walls and game objectives.
      */
     private double Y;
+    public double getY() {return Y;}
 
     /**
      * The Z-position of the point.
@@ -29,6 +31,7 @@ public class Vector3D
      * would represent moving up 
      */
     private double Z;
+    public double getZ() {return Z;}
 	
     /**
      * Initializes a zero Vector3D
