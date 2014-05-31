@@ -5,6 +5,7 @@ package RobotCode2015.util;
  * arctan, arccos, and arcsin!
  * @author Manan Shah
  * @author neymikajain
+ * @author Ben H.
  */
 public class MathUtil {
 
@@ -33,11 +34,11 @@ public class MathUtil {
 	return x + power(x, 3) / 3 + 2 * power(x, 5) / 15 + 17 * power(x, 7) / 315;
     }
     /**
-     * Returns x<sup>power</sup>, works for any values of x and power
+     * Returns x<sup>power</sup>, works for any values of x and power.
+     * Written by Ben H.
      * @param x the base
      * @param power the exponent
      * @return x<sup>power</sup>
-     * @author Ben H. 
      */
     public static double power(double x, int power) {
         // This is a more efficient method of doing power than 1 at a time for large exponents

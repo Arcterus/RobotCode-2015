@@ -21,7 +21,7 @@ public class IOUtil {
      * Pads the given string on the right with spaces
      * @param s The string which we are padding
      * @param length the desired final length of our string.
-     * @return 
+     * @return The padded string
      */
     public static String padRight(String s, int length) {
         StringBuffer sb = new StringBuffer();
@@ -35,7 +35,7 @@ public class IOUtil {
      * Pads the given string on the left with spaces
      * @param s The string which we are padding
      * @param length the desired final length of our string.
-     * @return 
+     * @return The padded string
      */
     public static String padLeft(String s, int length) {
             StringBuffer sb = new StringBuffer();

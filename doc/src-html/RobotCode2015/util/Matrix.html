@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package RobotCode2015.util;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>/**<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * An immutable implementation of a Matrix in Java<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * Primary logic and Matrix code derived and/or reproduced from<a name="line.5"></a>
+<span class="sourceLineNo">006</span> *  &lt;a href="http://introcs.cs.princeton.edu/java/95linear/Matrix.java.html"&gt;<a name="line.6"></a>
+<span class="sourceLineNo">007</span> *      Princeton Introduction to Programming in Java&lt;/a&gt;<a name="line.7"></a>
+<span class="sourceLineNo">008</span> *<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * @author Robert Sedgewick<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * @author Kevin Wayne<a name="line.10"></a>
+<span class="sourceLineNo">011</span> * @author Manan<a name="line.11"></a>
+<span class="sourceLineNo">012</span> */<a name="line.12"></a>
+<span class="sourceLineNo">013</span>public class Matrix {<a name="line.13"></a>
+<span class="sourceLineNo">014</span>    /**<a name="line.14"></a>
+<span class="sourceLineNo">015</span>     * The number of rows.<a name="line.15"></a>
+<span class="sourceLineNo">016</span>     */<a name="line.16"></a>
+<span class="sourceLineNo">017</span>    private final int rows;<a name="line.17"></a>
+<span class="sourceLineNo">018</span><a name="line.18"></a>
+<span class="sourceLineNo">019</span>    /**<a name="line.19"></a>
+<span class="sourceLineNo">020</span>     * The number of columns<a name="line.20"></a>
+<span class="sourceLineNo">021</span>     */<a name="line.21"></a>
+<span class="sourceLineNo">022</span>    private final int cols;<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
+<span class="sourceLineNo">024</span>    /**<a name="line.24"></a>
+<span class="sourceLineNo">025</span>     * A 2-dimensional array containing the elements of the matrix.<a name="line.25"></a>
+<span class="sourceLineNo">026</span>     */<a name="line.26"></a>
+<span class="sourceLineNo">027</span>    private final double[][] data;<a name="line.27"></a>
+<span class="sourceLineNo">028</span><a name="line.28"></a>
+<span class="sourceLineNo">029</span>    /**<a name="line.29"></a>
+<span class="sourceLineNo">030</span>     * Create an M-by-N matrix of zeros<a name="line.30"></a>
+<span class="sourceLineNo">031</span>     * @param M The number of rows<a name="line.31"></a>
+<span class="sourceLineNo">032</span>     * @param N The number of columns<a name="line.32"></a>
+<span class="sourceLineNo">033</span>     */<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    public Matrix(int M, int N) {<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        this.rows = M;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        this.cols = N;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        data = new double[M][N];<a name="line.37"></a>
+<span class="sourceLineNo">038</span>    }<a name="line.38"></a>
+<span class="sourceLineNo">039</span><a name="line.39"></a>
+<span class="sourceLineNo">040</span>    /**<a name="line.40"></a>
+<span class="sourceLineNo">041</span>     * Create a matrix based on a 2-dimensional array<a name="line.41"></a>
+<span class="sourceLineNo">042</span>     * @param data The array to create a matrix of<a name="line.42"></a>
+<span class="sourceLineNo">043</span>     */<a name="line.43"></a>
+<span class="sourceLineNo">044</span>    public Matrix(double[][] data) {<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        rows = data.length;<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        cols = data[0].length;<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        this.data = new double[rows][cols];<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        for (int i = 0; i &lt; rows; i++)<a name="line.48"></a>
+<span class="sourceLineNo">049</span>            System.arraycopy(data[i], 0, this.data[i], 0, cols);<a name="line.49"></a>
+<span class="sourceLineNo">050</span>    }<a name="line.50"></a>
+<span class="sourceLineNo">051</span><a name="line.51"></a>
+<span class="sourceLineNo">052</span>    /**<a name="line.52"></a>
+<span class="sourceLineNo">053</span>     * Create a new matrix that is a copy of another one<a name="line.53"></a>
+<span class="sourceLineNo">054</span>     * @param A The matrix to copy<a name="line.54"></a>
+<span class="sourceLineNo">055</span>     */<a name="line.55"></a>
+<span class="sourceLineNo">056</span>    public Matrix(Matrix A) { this(A.data); }<a name="line.56"></a>
+<span class="sourceLineNo">057</span><a name="line.57"></a>
+<span class="sourceLineNo">058</span><a name="line.58"></a>
+<span class="sourceLineNo">059</span>    /**<a name="line.59"></a>
+<span class="sourceLineNo">060</span>     * Gets the value of an element in the matrix<a name="line.60"></a>
+<span class="sourceLineNo">061</span>     * @param x The row number<a name="line.61"></a>
+<span class="sourceLineNo">062</span>     * @param y The column number<a name="line.62"></a>
+<span class="sourceLineNo">063</span>     * @return The value at index (x,y)<a name="line.63"></a>
+<span class="sourceLineNo">064</span>     */<a name="line.64"></a>
+<span class="sourceLineNo">065</span>    public double getValue(int x, int y) {<a name="line.65"></a>
+<span class="sourceLineNo">066</span>        return data[x][y];<a name="line.66"></a>
+<span class="sourceLineNo">067</span>    }<a name="line.67"></a>
+<span class="sourceLineNo">068</span><a name="line.68"></a>
+<span class="sourceLineNo">069</span>    /**<a name="line.69"></a>
+<span class="sourceLineNo">070</span>     * Sets the value of an element in the matrix<a name="line.70"></a>
+<span class="sourceLineNo">071</span>     * @param x The row number<a name="line.71"></a>
+<span class="sourceLineNo">072</span>     * @param y The column number<a name="line.72"></a>
+<span class="sourceLineNo">073</span>     * @param val The value to set index (x,y) to<a name="line.73"></a>
+<span class="sourceLineNo">074</span>     */<a name="line.74"></a>
+<span class="sourceLineNo">075</span>    public void setValue(int x, int y, double val) {<a name="line.75"></a>
+<span class="sourceLineNo">076</span>        data[x][y] = val;<a name="line.76"></a>
+<span class="sourceLineNo">077</span>    }<a name="line.77"></a>
+<span class="sourceLineNo">078</span><a name="line.78"></a>
+<span class="sourceLineNo">079</span>    /**<a name="line.79"></a>
+<span class="sourceLineNo">080</span>     * Create a new N-by-N identity matrix<a name="line.80"></a>
+<span class="sourceLineNo">081</span>     * @param N The size of the matrix<a name="line.81"></a>
+<span class="sourceLineNo">082</span>     * @return An identity matrix of size N<a name="line.82"></a>
+<span class="sourceLineNo">083</span>     */<a name="line.83"></a>
+<span class="sourceLineNo">084</span>    public static Matrix identity(int N) {<a name="line.84"></a>
+<span class="sourceLineNo">085</span>        Matrix I = new Matrix(N, N);<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        for (int i = 0; i &lt; N; i++)<a name="line.86"></a>
+<span class="sourceLineNo">087</span>            I.data[i][i] = 1;<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        return I;<a name="line.88"></a>
+<span class="sourceLineNo">089</span>    }<a name="line.89"></a>
+<span class="sourceLineNo">090</span><a name="line.90"></a>
+<span class="sourceLineNo">091</span>    /**<a name="line.91"></a>
+<span class="sourceLineNo">092</span>     * Swap rows i and j<a name="line.92"></a>
+<span class="sourceLineNo">093</span>     * @param i The first row to swap<a name="line.93"></a>
+<span class="sourceLineNo">094</span>     * @param j The row to swap with<a name="line.94"></a>
+<span class="sourceLineNo">095</span>     */<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    private void swap(int i, int j) {<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        double[] temp = data[i];<a name="line.97"></a>
+<span class="sourceLineNo">098</span>        data[i] = data[j];<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        data[j] = temp;<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    }<a name="line.100"></a>
+<span class="sourceLineNo">101</span><a name="line.101"></a>
+<span class="sourceLineNo">102</span>    /**<a name="line.102"></a>
+<span class="sourceLineNo">103</span>     * Creates the transpose matrix, A&lt;sup&gt;T&lt;/sup&gt;<a name="line.103"></a>
+<span class="sourceLineNo">104</span>     * @return The transpose of a given matrix<a name="line.104"></a>
+<span class="sourceLineNo">105</span>     */<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    public Matrix transpose() {<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        Matrix A = new Matrix(cols, rows);<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        for (int i = 0; i &lt; rows; i++)<a name="line.108"></a>
+<span class="sourceLineNo">109</span>            for (int j = 0; j &lt; cols; j++)<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                A.data[j][i] = data[i][j];<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        return A;<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    }<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>    /**<a name="line.114"></a>
+<span class="sourceLineNo">115</span>     * Adds the matrix to another one<a name="line.115"></a>
+<span class="sourceLineNo">116</span>     * @param B The matrix to add to<a name="line.116"></a>
+<span class="sourceLineNo">117</span>     * @return The sum of the two matrices<a name="line.117"></a>
+<span class="sourceLineNo">118</span>     */<a name="line.118"></a>
+<span class="sourceLineNo">119</span>    public Matrix plus(Matrix B) {<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        Matrix A = this;<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        if (B.rows != A.rows || B.cols != A.cols) throw new RuntimeException("Illegal matrix dimensions.");<a name="line.121"></a>
+<span class="sourceLineNo">122</span>        Matrix C = new Matrix(rows, cols);<a name="line.122"></a>
+<span class="sourceLineNo">123</span>        for (int i = 0; i &lt; rows; i++)<a name="line.123"></a>
+<span class="sourceLineNo">124</span>            for (int j = 0; j &lt; cols; j++)<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                C.data[i][j] = A.data[i][j] + B.data[i][j];<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        return C;<a name="line.126"></a>
+<span class="sourceLineNo">127</span>    }<a name="line.127"></a>
+<span class="sourceLineNo">128</span><a name="line.128"></a>
+<span class="sourceLineNo">129</span><a name="line.129"></a>
+<span class="sourceLineNo">130</span>    /**<a name="line.130"></a>
+<span class="sourceLineNo">131</span>     * Takes the difference of the matrix and another one<a name="line.131"></a>
+<span class="sourceLineNo">132</span>     * @param B The matrix to subtract this one from<a name="line.132"></a>
+<span class="sourceLineNo">133</span>     * @return The difference of the two matrices<a name="line.133"></a>
+<span class="sourceLineNo">134</span>     */<a name="line.134"></a>
+<span class="sourceLineNo">135</span>    public Matrix minus(Matrix B) {<a name="line.135"></a>
+<span class="sourceLineNo">136</span>        Matrix A = this;<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        if (B.rows != A.rows || B.cols != A.cols) throw new RuntimeException("Illegal matrix dimensions.");<a name="line.137"></a>
+<span class="sourceLineNo">138</span>        Matrix C = new Matrix(rows, cols);<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        for (int i = 0; i &lt; rows; i++)<a name="line.139"></a>
+<span class="sourceLineNo">140</span>            for (int j = 0; j &lt; cols; j++)<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                C.data[i][j] = A.data[i][j] - B.data[i][j];<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        return C;<a name="line.142"></a>
+<span class="sourceLineNo">143</span>    }<a name="line.143"></a>
+<span class="sourceLineNo">144</span><a name="line.144"></a>
+<span class="sourceLineNo">145</span>    /**<a name="line.145"></a>
+<span class="sourceLineNo">146</span>     * Takes the product of this matrix and another<a name="line.146"></a>
+<span class="sourceLineNo">147</span>     * @param B The matrix to multiply by<a name="line.147"></a>
+<span class="sourceLineNo">148</span>     * @return The product of the matrix and the other<a name="line.148"></a>
+<span class="sourceLineNo">149</span>     */<a name="line.149"></a>
+<span class="sourceLineNo">150</span>    public Matrix mult(Matrix B) {<a name="line.150"></a>
+<span class="sourceLineNo">151</span>        Matrix A = this;<a name="line.151"></a>
+<span class="sourceLineNo">152</span>        if (A.cols != B.rows) throw new RuntimeException("Illegal matrix dimensions.");<a name="line.152"></a>
+<span class="sourceLineNo">153</span>        Matrix C = new Matrix(A.rows, B.cols);<a name="line.153"></a>
+<span class="sourceLineNo">154</span>        for (int i = 0; i &lt; C.rows; i++)<a name="line.154"></a>
+<span class="sourceLineNo">155</span>            for (int j = 0; j &lt; C.cols; j++)<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                for (int k = 0; k &lt; A.cols; k++)<a name="line.156"></a>
+<span class="sourceLineNo">157</span>                    C.data[i][j] += (A.data[i][k] * B.data[k][j]);<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        return C;<a name="line.158"></a>
+<span class="sourceLineNo">159</span>    }<a name="line.159"></a>
+<span class="sourceLineNo">160</span><a name="line.160"></a>
+<span class="sourceLineNo">161</span>    /**<a name="line.161"></a>
+<span class="sourceLineNo">162</span>     * Solves the equation A * x = b for x<a name="line.162"></a>
+<span class="sourceLineNo">163</span>     * @param rhs The right hand side of the equation, b.<a name="line.163"></a>
+<span class="sourceLineNo">164</span>     * @return x = A&lt;sup&gt;-1&lt;/sup&gt; * b, assuming A is square and has full rank<a name="line.164"></a>
+<span class="sourceLineNo">165</span>     */<a name="line.165"></a>
+<span class="sourceLineNo">166</span>    public Matrix solve(Matrix rhs) {<a name="line.166"></a>
+<span class="sourceLineNo">167</span>        if (rows != cols || rhs.rows != cols)// || rhs.cols != 1)<a name="line.167"></a>
+<span class="sourceLineNo">168</span>            throw new RuntimeException("Illegal matrix dimensions.");<a name="line.168"></a>
+<span class="sourceLineNo">169</span><a name="line.169"></a>
+<span class="sourceLineNo">170</span>        // create copies of the data<a name="line.170"></a>
+<span class="sourceLineNo">171</span>        Matrix A = new Matrix(this);<a name="line.171"></a>
+<span class="sourceLineNo">172</span>        Matrix b = new Matrix(rhs);<a name="line.172"></a>
+<span class="sourceLineNo">173</span><a name="line.173"></a>
+<span class="sourceLineNo">174</span>        // Gaussian elimination with partial pivoting<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        for (int i = 0; i &lt; cols; i++) {<a name="line.175"></a>
+<span class="sourceLineNo">176</span>            int max = i;<a name="line.176"></a>
+<span class="sourceLineNo">177</span>            for (int j = i + 1; j &lt; cols; j++)<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                if (Math.abs(A.data[j][i]) &gt; Math.abs(A.data[max][i]))<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                    max = j;<a name="line.179"></a>
+<span class="sourceLineNo">180</span>            A.swap(i, max);<a name="line.180"></a>
+<span class="sourceLineNo">181</span>            b.swap(i, max);<a name="line.181"></a>
+<span class="sourceLineNo">182</span><a name="line.182"></a>
+<span class="sourceLineNo">183</span>            // singular<a name="line.183"></a>
+<span class="sourceLineNo">184</span>            if (A.data[i][i] == 0.0) throw new RuntimeException("Matrix is singular.");<a name="line.184"></a>
+<span class="sourceLineNo">185</span><a name="line.185"></a>
+<span class="sourceLineNo">186</span>            // pivot within b<a name="line.186"></a>
+<span class="sourceLineNo">187</span>            for (int j = i + 1; j &lt; cols; j++)<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                b.data[j][0] -= b.data[i][0] * A.data[j][i] / A.data[i][i];<a name="line.188"></a>
+<span class="sourceLineNo">189</span><a name="line.189"></a>
+<span class="sourceLineNo">190</span>            // pivot within A<a name="line.190"></a>
+<span class="sourceLineNo">191</span>            for (int j = i + 1; j &lt; cols; j++) {<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                double m = A.data[j][i] / A.data[i][i];<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                for (int k = i+1; k &lt; cols; k++) {<a name="line.193"></a>
+<span class="sourceLineNo">194</span>                    A.data[j][k] -= A.data[i][k] * m;<a name="line.194"></a>
+<span class="sourceLineNo">195</span>                }<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                A.data[j][i] = 0.0;<a name="line.196"></a>
+<span class="sourceLineNo">197</span>            }<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        }<a name="line.198"></a>
+<span class="sourceLineNo">199</span><a name="line.199"></a>
+<span class="sourceLineNo">200</span>        // back substitution<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        Matrix x = new Matrix(cols, 1);<a name="line.201"></a>
+<span class="sourceLineNo">202</span>        for (int j = cols - 1; j &gt;= 0; j--) {<a name="line.202"></a>
+<span class="sourceLineNo">203</span>            double t = 0.0;<a name="line.203"></a>
+<span class="sourceLineNo">204</span>            for (int k = j + 1; k &lt; cols; k++)<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                t += A.data[j][k] * x.data[k][0];<a name="line.205"></a>
+<span class="sourceLineNo">206</span>            x.data[j][0] = (b.data[j][0] - t) / A.data[j][j];<a name="line.206"></a>
+<span class="sourceLineNo">207</span>        }<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        return x;<a name="line.208"></a>
+<span class="sourceLineNo">209</span>    }<a name="line.209"></a>
+<span class="sourceLineNo">210</span><a name="line.210"></a>
+<span class="sourceLineNo">211</span>    /**<a name="line.211"></a>
+<span class="sourceLineNo">212</span>     * Creates a new {@link Vector3D} with the first column of the matrix.<a name="line.212"></a>
+<span class="sourceLineNo">213</span>     * @return A new {@link Vector3D} based on the first column of the matrix.<a name="line.213"></a>
+<span class="sourceLineNo">214</span>     */<a name="line.214"></a>
+<span class="sourceLineNo">215</span>    public Vector3D ToVector3DByCol() {<a name="line.215"></a>
+<span class="sourceLineNo">216</span>        return new Vector3D(getValue(0, 0), getValue(1, 0), getValue(2, 0));<a name="line.216"></a>
+<span class="sourceLineNo">217</span>    }<a name="line.217"></a>
+<span class="sourceLineNo">218</span><a name="line.218"></a>
+<span class="sourceLineNo">219</span>    /**<a name="line.219"></a>
+<span class="sourceLineNo">220</span>     * Creates a new {@link Vector3D} with a specified column of the matrix.<a name="line.220"></a>
+<span class="sourceLineNo">221</span>     * @param col The column to create a vector of.<a name="line.221"></a>
+<span class="sourceLineNo">222</span>     * @return A new {@link Vector3D} based on the given column of the matrix.<a name="line.222"></a>
+<span class="sourceLineNo">223</span>     */<a name="line.223"></a>
+<span class="sourceLineNo">224</span>    public Vector3D ToVector3DByCol(int col) {<a name="line.224"></a>
+<span class="sourceLineNo">225</span>        return new Vector3D(getValue(0, col), getValue(1, col), getValue(2, col));<a name="line.225"></a>
+<span class="sourceLineNo">226</span>    }<a name="line.226"></a>
+<span class="sourceLineNo">227</span><a name="line.227"></a>
+<span class="sourceLineNo">228</span>    /**<a name="line.228"></a>
+<span class="sourceLineNo">229</span>     * Creates a new {@link Vector3D} with the first column of the matrix, scaled by the fourth element in that column.<a name="line.229"></a>
+<span class="sourceLineNo">230</span>     * @return A new {@link Vector3D} based on the given column of the matrix and its scale factor.<a name="line.230"></a>
+<span class="sourceLineNo">231</span>     */<a name="line.231"></a>
+<span class="sourceLineNo">232</span>    public Vector3D ToVector3DByColWithScale() {<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        return new Vector3D(getValue(0, 0) / getValue(3, 0), getValue(1, 0) / getValue(3, 0), getValue(2, 0) / getValue(3, 0));<a name="line.233"></a>
+<span class="sourceLineNo">234</span>    }<a name="line.234"></a>
+<span class="sourceLineNo">235</span><a name="line.235"></a>
+<span class="sourceLineNo">236</span>    /**<a name="line.236"></a>
+<span class="sourceLineNo">237</span>     * Creates a new {@link Vector3D} with the first row of the matrix.<a name="line.237"></a>
+<span class="sourceLineNo">238</span>     * @return A new {@link Vector3D} based on the first row of the matrix.<a name="line.238"></a>
+<span class="sourceLineNo">239</span>     */<a name="line.239"></a>
+<span class="sourceLineNo">240</span>    public Vector3D ToVector3DByRow() {<a name="line.240"></a>
+<span class="sourceLineNo">241</span>        return new Vector3D(getValue(0, 0), getValue(0, 1), getValue(0, 2));<a name="line.241"></a>
+<span class="sourceLineNo">242</span>    }<a name="line.242"></a>
+<span class="sourceLineNo">243</span><a name="line.243"></a>
+<span class="sourceLineNo">244</span>    /**<a name="line.244"></a>
+<span class="sourceLineNo">245</span>     * Creates a new {@link Vector3D} with a specified row of the matrix.<a name="line.245"></a>
+<span class="sourceLineNo">246</span>     * @param row The row to create a vector of.<a name="line.246"></a>
+<span class="sourceLineNo">247</span>     * @return A new {@link Vector3D} based on the given row of the matrix.<a name="line.247"></a>
+<span class="sourceLineNo">248</span>     */<a name="line.248"></a>
+<span class="sourceLineNo">249</span>    public Vector3D ToVector3DByRow(int row) {<a name="line.249"></a>
+<span class="sourceLineNo">250</span><a name="line.250"></a>
+<span class="sourceLineNo">251</span>        return new Vector3D(getValue(row, 0), getValue(row, 1), getValue(row, 2));<a name="line.251"></a>
+<span class="sourceLineNo">252</span>    }<a name="line.252"></a>
+<span class="sourceLineNo">253</span><a name="line.253"></a>
+<span class="sourceLineNo">254</span>    /**<a name="line.254"></a>
+<span class="sourceLineNo">255</span>     * Creates a new matrix from a Vector3D<a name="line.255"></a>
+<span class="sourceLineNo">256</span>     * @deprecated Instead, use {@link Vector3D#toMatrix()}<a name="line.256"></a>
+<span class="sourceLineNo">257</span>     * @param v The vector to create a matrix from<a name="line.257"></a>
+<span class="sourceLineNo">258</span>     * @return The new matrix<a name="line.258"></a>
+<span class="sourceLineNo">259</span>     */<a name="line.259"></a>
+<span class="sourceLineNo">260</span>    public static Matrix FromVector3D(Vector3D v) {<a name="line.260"></a>
+<span class="sourceLineNo">261</span>        return new Matrix(new double[][] { {v.getX()}, {v.getY()}, {v.getZ()}, {1}});<a name="line.261"></a>
+<span class="sourceLineNo">262</span>    }<a name="line.262"></a>
+<span class="sourceLineNo">263</span><a name="line.263"></a>
+<span class="sourceLineNo">264</span>    /**<a name="line.264"></a>
+<span class="sourceLineNo">265</span>     * Checks if two matrices are equivalent<a name="line.265"></a>
+<span class="sourceLineNo">266</span>     * @param B The matrix to compare to<a name="line.266"></a>
+<span class="sourceLineNo">267</span>     * @return &lt;code&gt;true&lt;/code&gt; if the dimensions match and the individual elements are the same.<a name="line.267"></a>
+<span class="sourceLineNo">268</span>     */<a name="line.268"></a>
+<span class="sourceLineNo">269</span>    public boolean equals(Matrix B) {<a name="line.269"></a>
+<span class="sourceLineNo">270</span>        Matrix A = this;<a name="line.270"></a>
+<span class="sourceLineNo">271</span>        if (B.rows != A.rows || B.cols != A.cols) throw new RuntimeException("Illegal matrix dimensions.");<a name="line.271"></a>
+<span class="sourceLineNo">272</span>        for (int i = 0; i &lt; rows; i++)<a name="line.272"></a>
+<span class="sourceLineNo">273</span>            for (int j = 0; j &lt; cols; j++)<a name="line.273"></a>
+<span class="sourceLineNo">274</span>                if (A.data[i][j] != B.data[i][j]) return false;<a name="line.274"></a>
+<span class="sourceLineNo">275</span>        return true;<a name="line.275"></a>
+<span class="sourceLineNo">276</span>    }<a name="line.276"></a>
+<span class="sourceLineNo">277</span><a name="line.277"></a>
+<span class="sourceLineNo">278</span>    /**<a name="line.278"></a>
+<span class="sourceLineNo">279</span>     * Returns a printable form of the matrix.<a name="line.279"></a>
+<span class="sourceLineNo">280</span>     * @return The formatted string version of the matrix<a name="line.280"></a>
+<span class="sourceLineNo">281</span>     */<a name="line.281"></a>
+<span class="sourceLineNo">282</span>    public String toString() {<a name="line.282"></a>
+<span class="sourceLineNo">283</span>        String s = "";<a name="line.283"></a>
+<span class="sourceLineNo">284</span>        for (int i = 0; i &lt; rows; i++) {<a name="line.284"></a>
+<span class="sourceLineNo">285</span>            for (int j = 0; j &lt; cols; j++)<a name="line.285"></a>
+<span class="sourceLineNo">286</span>                s += data[i][j] + " ";<a name="line.286"></a>
+<span class="sourceLineNo">287</span>            s += "\n";<a name="line.287"></a>
+<span class="sourceLineNo">288</span>        }<a name="line.288"></a>
+<span class="sourceLineNo">289</span>        return s;<a name="line.289"></a>
+<span class="sourceLineNo">290</span>    }<a name="line.290"></a>
+<span class="sourceLineNo">291</span>}<a name="line.291"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

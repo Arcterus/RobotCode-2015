@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.Encoder;
  *
  *
  * @author Brian Chan
- * @version
  */
 public class EncoderWrapper extends Encoder {
 
