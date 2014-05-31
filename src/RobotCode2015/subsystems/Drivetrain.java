@@ -145,7 +145,7 @@ public class Drivetrain extends Subsystem {
 		getAverageRate() * Math.cos(getYawAngle()),
 		getAverageRate() * Math.sin(getYawAngle()),
 		0);
-	double theta = offsetPosition.normalize().cross(currentVelocity.normalize()).direction();
+	double theta = offsetPosition.normalize().cross(currentVelocity.normalize()).getDirection();
 
 	//drive based on theta and speed
 	drive(speed + theta * Constants.Drivetrain.DRIVE_TO_POINT_SCALING, speed - theta * Constants.Drivetrain.DRIVE_TO_POINT_SCALING); //TODO: does this break with acceleration ACCELERATION_SCALING

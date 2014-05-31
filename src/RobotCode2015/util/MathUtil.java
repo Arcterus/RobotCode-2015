@@ -33,10 +33,10 @@ public class MathUtil {
 	return x + power(x, 3) / 3 + 2 * power(x, 5) / 15 + 17 * power(x, 7) / 315;
     }
     /**
-     * Returns x^power, works for any values of x and power
+     * Returns x<sup>power</sup>, works for any values of x and power
      * @param x the base
      * @param power the exponent
-     * @return x^power
+     * @return x<sup>power</sup>
      * @author Ben H. 
      */
     public static double power(double x, int power) {
