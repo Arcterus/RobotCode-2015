@@ -39,6 +39,8 @@ public final class Constants {
         public static double TURN_TO_ANGLE_ERROR;
         public static double DRIVE_TO_POINT_SCALING, DRIVE_TO_POINT_THRESHOLD;
         public static boolean LEFT_BACK_MOTOR_FLIPPED, LEFT_MIDDLE_MOTOR_FLIPPED, LEFT_FRONT_MOTOR_FLIPPED, RIGHT_BACK_MOTOR_FLIPPED, RIGHT_MIDDLE_MOTOR_FLIPPED, RIGHT_FRONT_MOTOR_FLIPPED;  
+        public static boolean HIGH_GEAR_STATE, LOW_GEAR_STATE;
+        public static double HIGH_GEAR_THRESHOLD, LOW_GEAR_THRESHOLD;
         
         private static void updateConstants () { //TODO: Test for proper values
             
@@ -78,6 +80,14 @@ public final class Constants {
             RIGHT_BACK_MOTOR_FLIPPED = prefs.getBoolean("dt_rightBackFlipped", false);
             RIGHT_MIDDLE_MOTOR_FLIPPED = prefs.getBoolean("dt_rightMiddleFlipped", false);
             RIGHT_FRONT_MOTOR_FLIPPED = prefs.getBoolean("dt_rightFrontFlipped", false);
+
+            //Booleans for the solenoid controlling gear shifting
+            HIGH_GEAR_STATE = prefs.getBoolean("dt_highGearState", true);
+            LOW_GEAR_STATE = prefs.getBoolean("dt_lowGearState", false);
+
+            //Thresholds for when to switch gears (the difference between the two prevents constant switching around one value)
+            HIGH_GEAR_THRESHOLD = prefs.getDouble("dt_highGearThreshold", .60);
+            LOW_GEAR_THRESHOLD = prefs.getDouble("dt_lowGearThreshold", .40);
         }
     }
 }

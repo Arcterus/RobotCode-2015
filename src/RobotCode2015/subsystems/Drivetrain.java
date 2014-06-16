@@ -7,6 +7,7 @@ import RobotCode2015.util.Vector3D;
 import RobotCode2015.wrappers.TalonWrapper;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -28,6 +29,8 @@ public class Drivetrain extends Subsystem {
     
     private final Gyro gyro;
     
+    private final Solenoid shifter;
+
     private double leftTargetSpeed, rightTargetSpeed, leftCurrSpeed, rightCurrSpeed;
     
     private boolean isBusy;
@@ -45,6 +48,8 @@ public class Drivetrain extends Subsystem {
         
         gyro = new Gyro(RobotMap.Drivetrain.GYRO_CHANNEL);
         
+        shifter = new Solenoid(RobotMap.Drivetrain.SHIFTER_CHANNEL);
+
         leftTargetSpeed = rightTargetSpeed = leftCurrSpeed = rightCurrSpeed = 0;
         
         isBusy = false;
@@ -261,5 +266,42 @@ public class Drivetrain extends Subsystem {
      */
     public void setBusy(boolean flag) {
         isBusy = flag;
+    }
+
+    /**
+     * Sets the robot into high gear.
+     */
+    public void setHighGearState() {
+        shifter.set(Constants.Drivetrain.HIGH_GEAR_STATE);
+    }
+
+    /**
+     * Sets the robot into low gear.
+     */
+    public void setLowGearState() {
+        shifter.set(Constants.Drivetrain.LOW_GEAR_STATE);
+    }
+
+    /**
+     * Toggles the robot's gear.
+     */
+    public void toggleGearState() {
+        shifter.set(!shifter.get());
+    }
+
+    /**
+     * Sets the gear of the robot.
+     * @param state The state to set to.
+     */
+    public void setGearState(boolean state) {
+        shifter.set(state);
+    }
+
+    /**
+     * Gets the current gear of the robot.
+     * @return The gear state.
+     */
+    public boolean getGearState() {
+        return shifter.get();
     }
 }

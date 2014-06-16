@@ -5,6 +5,7 @@
  */
 package RobotCode2015.commands;
 
+import RobotCode2015.commands.drivetrain.AutomaticShiftingCommand;
 import RobotCode2015.commands.drivetrain.DrivetrainAccelerationCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -16,5 +17,6 @@ public class RunPersistentCommands extends CommandGroup {
     
     public RunPersistentCommands() {
         addParallel(new DrivetrainAccelerationCommand());
+        addParallel(new AutomaticShiftingCommand());
     }
 }

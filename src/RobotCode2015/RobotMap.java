@@ -33,8 +33,11 @@ public class RobotMap {
         public static final int RIGHT_ENC_CHANNEL_A = 3;
         public static final int RIGHT_ENC_CHANNEL_B = 4;
         
-        //Gyro Channels
+        //Gyro Channel
         public static final int GYRO_CHANNEL = 5;
+
+        //Shifter Channel
+        public static final int SHIFTER_CHANNEL = 7;
     }
     
     public static class Gamepad {
