@@ -9,17 +9,18 @@ import RobotCode2015.Constants;
 import RobotCode2015.commands.CommandBase;
 
 /**
- *
+ * Handles automatically shifting from low to high gear based on the average acceleration of the robot.
  * @author atierno
  */
 public class AutomaticShiftingCommand extends CommandBase {
 
     private double[] samples = new double[10]; //Take multiple samples to reduce chance of outliers resulting in sudden switches
     int sampleIndex = 0; //Index to iterate over sample array
-    double avgSpeed; //The average speed collected over time
+    double avgAcceleration; //The average acceleration collected over time
 
     public AutomaticShiftingCommand() {
         super("Automatic Shifting Command");
+        setTimerLength(0); //Allow the robot to initially shift instantly
     }
 
     // Called just before this Command runs the first time
@@ -28,14 +29,22 @@ public class AutomaticShiftingCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        samples[sampleIndex] = CommandBase.drivetrain.getAverageRate();
+        samples[sampleIndex] = CommandBase.drivetrain.getAverageAcceleration();
         if (sampleIndex == samples.length - 1) { //If sufficient samples have been taken
-            avgSpeed = average(samples);
-            if (avgSpeed > Constants.Drivetrain.HIGH_GEAR_THRESHOLD)
+            avgAcceleration = average(samples);
+            //Check if either threshold is met, if there has been sufficient delay since the last gear shift, and if the gear is locked
+            if (avgAcceleration > Constants.Drivetrain.HIGH_GEAR_THRESHOLD && isTimerFinished() && !drivetrain.isShifterLocked()) {
                 CommandBase.drivetrain.setHighGearState();
-            if (avgSpeed < Constants.Drivetrain.LOW_GEAR_THRESHOLD)
+                resetTimer();
+                setTimerLength(Constants.Drivetrain.SHIFT_DELAY);
+            }
+            if (avgAcceleration < Constants.Drivetrain.LOW_GEAR_THRESHOLD && isTimerFinished() && !drivetrain.isShifterLocked()) {
                 CommandBase.drivetrain.setLowGearState();
+                resetTimer();
+                setTimerLength(Constants.Drivetrain.SHIFT_DELAY);
+            }
         }
+        sampleIndex = (sampleIndex + 1) % samples.length; //Modulus covers for wrapping around from the end of the list to the beginning
     }
 
     // Make this return true when this Command no longer needs to run execute()

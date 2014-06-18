@@ -4,6 +4,7 @@ import RobotCode2015.Constants;
 import RobotCode2015.OI;
 import RobotCode2015.RobotMap;
 import RobotCode2015.util.Vector3D;
+import RobotCode2015.wrappers.EncoderWrapper;
 import RobotCode2015.wrappers.TalonWrapper;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
@@ -24,8 +25,8 @@ public class Drivetrain extends Subsystem {
     private final TalonWrapper rightMiddleMotor;
     private final TalonWrapper rightFrontMotor;
     
-    private final Encoder leftEnc;
-    private final Encoder rightEnc;
+    private final EncoderWrapper leftEnc;
+    private final EncoderWrapper rightEnc;
     
     private final Gyro gyro;
     
@@ -33,7 +34,7 @@ public class Drivetrain extends Subsystem {
 
     private double leftTargetSpeed, rightTargetSpeed, leftCurrSpeed, rightCurrSpeed;
     
-    private boolean isBusy;
+    private boolean isBusy, isShifterLocked;
     
     public Drivetrain () {
         leftBackMotor   = new TalonWrapper (RobotMap.Drivetrain.LEFT_BACK_MOTOR_CHANNEL, Constants.Drivetrain.LEFT_BACK_MOTOR_FLIPPED);
@@ -43,8 +44,8 @@ public class Drivetrain extends Subsystem {
         rightMiddleMotor = new TalonWrapper (RobotMap.Drivetrain.RIGHT_MIDDLE_MOTOR_CHANNEL, Constants.Drivetrain.RIGHT_MIDDLE_MOTOR_FLIPPED);
         rightFrontMotor = new TalonWrapper (RobotMap.Drivetrain.RIGHT_FRONT_MOTOR_CHANNEL, Constants.Drivetrain.RIGHT_FRONT_MOTOR_FLIPPED);
         
-        leftEnc  = new Encoder (RobotMap.Drivetrain.LEFT_ENC_CHANNEL_A, RobotMap.Drivetrain.LEFT_ENC_CHANNEL_B);
-        rightEnc = new Encoder (RobotMap.Drivetrain.RIGHT_ENC_CHANNEL_A, RobotMap.Drivetrain.RIGHT_ENC_CHANNEL_B);
+        leftEnc  = new EncoderWrapper (RobotMap.Drivetrain.LEFT_ENC_CHANNEL_A, RobotMap.Drivetrain.LEFT_ENC_CHANNEL_B);
+        rightEnc = new EncoderWrapper (RobotMap.Drivetrain.RIGHT_ENC_CHANNEL_A, RobotMap.Drivetrain.RIGHT_ENC_CHANNEL_B);
         
         gyro = new Gyro(RobotMap.Drivetrain.GYRO_CHANNEL);
         
@@ -53,6 +54,7 @@ public class Drivetrain extends Subsystem {
         leftTargetSpeed = rightTargetSpeed = leftCurrSpeed = rightCurrSpeed = 0;
         
         isBusy = false;
+        isShifterLocked = false;
     }
     
     public void initDefaultCommand() {
@@ -87,8 +89,8 @@ public class Drivetrain extends Subsystem {
      * Update the rates of the Encoders.
      */
     public void updateEncoders() {
-        /*leftEnc.updateRate();
-        rightEnc.updateRate();*/
+        leftEnc.updateRate();
+        rightEnc.updateRate();
     }
     
     /**
@@ -161,7 +163,7 @@ public class Drivetrain extends Subsystem {
      * Gets the left encoder rate.
      * @return The left encoder rate.
      */
-    public double getLeftRate () {
+    public double getLeftRate() {
         return leftEnc.getRate();
     }
     
@@ -169,7 +171,7 @@ public class Drivetrain extends Subsystem {
      * Gets the right encoder rate.
      * @return The right encoder rate.
      */
-    public double getRightRate () {
+    public double getRightRate() {
         return rightEnc.getRate();
     }
     
@@ -177,7 +179,7 @@ public class Drivetrain extends Subsystem {
      * Gets the average rate of the robot.
      * @return The average rate.
      */
-    public double getAverageRate () {
+    public double getAverageRate() {
         return (leftEnc.getRate() + rightEnc.getRate()) / 2;
     }
     
@@ -185,7 +187,7 @@ public class Drivetrain extends Subsystem {
      * Gets the distance the left encoder has traveled since the last reset.
      * @return The distance the left has traveled. 
      */
-    public double getLeftDistance () {
+    public double getLeftDistance() {
         return leftEnc.getDistance();
     }
     
@@ -193,7 +195,7 @@ public class Drivetrain extends Subsystem {
      * Gets the distance the right encoder has traveled since the last reset.
      * @return The distance the right has traveled.
      */
-    public double getRightDistance () {
+    public double getRightDistance() {
         return rightEnc.getDistance();
     }
     
@@ -201,8 +203,32 @@ public class Drivetrain extends Subsystem {
      * Gets the average distance the robot has traveled since the last reset.
      * @return The average distance traveled.
      */
-    public double getAverageDistance () {
+    public double getAverageDistance() {
         return (leftEnc.getDistance() + rightEnc.getDistance()) / 2;
+    }
+
+    /**
+     * Gets the acceleration as recorded by the left encoder.
+     * @return The acceleration of the left encoder.
+     */
+    public double getLeftAcceleration() {
+        return leftEnc.getAcceleration();
+    }
+
+    /**
+     * Gets the acceleration as recorded by the right encoder.
+     * @return The acceleration of the right encoder.
+     */
+    public double getRightAcceleration() {
+        return rightEnc.getAcceleration();
+    }
+
+    /**
+     * Gets the average acceleration of both encoders.
+     * @return The average acceleration of the robot.
+     */
+    public double getAverageAcceleration() {
+        return (leftEnc.getAcceleration() + rightEnc.getAcceleration()) / 2;
     }
 
     /**
@@ -304,4 +330,21 @@ public class Drivetrain extends Subsystem {
     public boolean getGearState() {
         return shifter.get();
     }
+
+    /**
+     * Gets whether or not the gear shifter is locked into one gear state.
+     * @return Whether the shifter lock is in place or not.
+     */
+    public boolean isShifterLocked() {
+        return isShifterLocked;
+    }
+
+    /**
+     * Sets whether or not the gear shifter should be locked into one gear state.
+     * @param isLocked Whether or not to lock the shifter.
+     */
+    public void setShifterLocked(boolean isLocked) {
+        isShifterLocked = isLocked;
+    }
+
 }

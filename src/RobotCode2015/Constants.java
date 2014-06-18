@@ -41,6 +41,7 @@ public final class Constants {
         public static boolean LEFT_BACK_MOTOR_FLIPPED, LEFT_MIDDLE_MOTOR_FLIPPED, LEFT_FRONT_MOTOR_FLIPPED, RIGHT_BACK_MOTOR_FLIPPED, RIGHT_MIDDLE_MOTOR_FLIPPED, RIGHT_FRONT_MOTOR_FLIPPED;  
         public static boolean HIGH_GEAR_STATE, LOW_GEAR_STATE;
         public static double HIGH_GEAR_THRESHOLD, LOW_GEAR_THRESHOLD;
+        public static double SHIFT_DELAY;
         
         private static void updateConstants () { //TODO: Test for proper values
             
@@ -51,6 +52,7 @@ public final class Constants {
             // -----------------------------
 	    //	Encoder Distance per Pulse:
 	    //	    experimental values: ticks per cycle * distance moved (manually) / encoder pulses
+            //      This should be in meters per second
 	    // -----------------------------
             LEFT_ENC_DIST_PER_PULSE = prefs.getDouble("dt_leftEncDistPerPulse", 1 * 2 / 3);
             RIGHT_ENC_DIST_PER_PULSE = prefs.getDouble("dt_rightEncDistPerPulse", 1 * 2 / 3);
@@ -85,9 +87,12 @@ public final class Constants {
             HIGH_GEAR_STATE = prefs.getBoolean("dt_highGearState", true);
             LOW_GEAR_STATE = prefs.getBoolean("dt_lowGearState", false);
 
-            //Thresholds for when to switch gears (the difference between the two prevents constant switching around one value)
+            //Thresholds for at what acceleration to switch gears (the difference between the two prevents constant switching around one value)
             HIGH_GEAR_THRESHOLD = prefs.getDouble("dt_highGearThreshold", .60);
             LOW_GEAR_THRESHOLD = prefs.getDouble("dt_lowGearThreshold", .40);
+
+            //The delay before the robot is allowed to shift gears again (should be in seconds)
+            SHIFT_DELAY = prefs.getDouble("dt_shiftDelay", 5);
         }
     }
 }
