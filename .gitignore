@@ -19,11 +19,11 @@ build
 #!build.xml Don't want peoples' build files messing with each others
 !build.properties
 
+*.xml
+
 # Ignore the files compiled/built from Java source ...
 *.class
 #*.jar
 *.war
 *.ear
 /nbproject/private/
-
-*.xml

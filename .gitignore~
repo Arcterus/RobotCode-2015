@@ -16,7 +16,7 @@ build
 
 # Definitely include these ...
 !/resources
-!build.xml
+#!build.xml Don't want peoples' build files messing with each others
 !build.properties
 
 # Ignore the files compiled/built from Java source ...
@@ -25,3 +25,5 @@ build
 *.war
 *.ear
 /nbproject/private/
+
+*.xml
