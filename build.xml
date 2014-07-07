@@ -26,6 +26,15 @@
     <property name="user.properties.file" value="build.properties"/>
     <property file="${user.home}/.sunspotfrc.properties"/>
     <import file="${sunspot.home}/build.xml"/>
+    <exec executable="rm">
+      <arg value="-rf" />
+      <arg value="./src/org/harker/robotics/harkerrobolib/" />
+    </exec>
+    <exec executable="cp">
+      <arg value="-R" />
+      <arg value="/PATH/TO/ROBOLIB/HarkerRoboLib/src/" /> <!-- You MUST change this value otherwise the code will not compile -->
+      <arg value="src/" />
+    </exec>
 
     <!--
 

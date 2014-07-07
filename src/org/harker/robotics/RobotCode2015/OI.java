@@ -1,10 +1,10 @@
 package org.harker.robotics.RobotCode2015;
 
-import RobotCode2015.commands.drivetrain.DriveStraightCommand;
-import RobotCode2015.commands.drivetrain.ManualDriveCommand;
-import RobotCode2015.commands.drivetrain.ManualShiftGearCommand;
-import RobotCode2015.commands.drivetrain.RestoreManualDriveCommand;
-import RobotCode2015.commands.drivetrain.SetShifterLockCommand;
+import org.harker.robotics.RobotCode2015.commands.drivetrain.DriveStraightCommand;
+import org.harker.robotics.RobotCode2015.commands.drivetrain.ManualDriveCommand;
+import org.harker.robotics.RobotCode2015.commands.drivetrain.ManualShiftGearCommand;
+import org.harker.robotics.RobotCode2015.commands.drivetrain.RestoreManualDriveCommand;
+import org.harker.robotics.RobotCode2015.commands.drivetrain.SetShifterLockCommand;
 import org.harker.robotics.harkerrobolib.wrappers.GamepadWrapper;
 import edu.wpi.first.wpilibj.Joystick;
 

@@ -1,7 +1,7 @@
 package org.harker.robotics.RobotCode2015.commands;
 
-import RobotCode2015.commands.drivetrain.AutomaticShiftingCommand;
-import RobotCode2015.commands.drivetrain.DrivetrainAccelerationCommand;
+import org.harker.robotics.RobotCode2015.commands.drivetrain.AutomaticShiftingCommand;
+import org.harker.robotics.RobotCode2015.commands.drivetrain.DrivetrainAccelerationCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
