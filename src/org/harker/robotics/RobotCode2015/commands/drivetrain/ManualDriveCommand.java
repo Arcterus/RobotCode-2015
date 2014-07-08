@@ -7,7 +7,7 @@ import org.harker.robotics.harkerrobolib.wrappers.GamepadWrapper;
 
 /**
  * Takes the user's inputs from joysticks for driving.
- * @author neymikajain
+ * @aauthor neymikajain
  */
 public class ManualDriveCommand extends CommandBase {
 
