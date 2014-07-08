@@ -27,43 +27,18 @@
   <property file="${user.home}/.sunspotfrc.properties"/>
   <import file="${sunspot.home}/build.xml" />
 
-  <!-- This build file will ONLY work on Macs because UNIX.-->
-  <!-- PC users will have to do this by hand I'm afraid. Delete the '>' at the end of the line and unccoment the portion below -->
-
-
-  <exec executable="rm">
-    <arg value="-rf" />
-    <arg value="${user.home}/harkerrobolib/" />
-  </exec>
-  <exec executable="mkdir">
-    <arg value="-p" />
-    <arg value="${user.home}/harkerrobolib/" />
-  </exec>
+  <!-- fancy (cross-platform) updating -->
+  <delete dir="harkerrobolib"/>
+  <mkdir dir="harkerrobolib"/>
   <exec executable="git">
     <arg value="clone" />
     <arg value="http://github.com/harkerrobo/HarkerRoboLib/" />
-    <arg value="${user.home}/harkerrobolib/" />
+    <arg value="harkerrobolib/" />
   </exec>
-  <exec executable="rm">
-    <arg value="-rf" />
-    <arg value="./src/org/harker/robotics/harkerrobolib/" />
-  </exec>
-  <exec executable="cp">
-    <arg value="-R" />
-    <arg value="${user.home}/harkerrobolib/src/" />
-    <arg value="src/" />
-  </exec>
-  <!-->
-  <!--PC Users add a '>' at the end of this line --
-  <exec executable="rm">
-    <arg value=".\src\org\harker\robotics\harkerrobolib\" />
-  </exec>
-  <exec executable="cp">
-    <arg value="-R" />
-    <arg value="PATH\TO\LIBRARY\harkerrobolib\src\" />
-    <arg value="src/" />
-  </exec>
-  <!-->
+  <delete dir="src/org/harker/robotics/harkerrobolib"/>
+  <copy todir="src">
+    <fileset dir="harkerrobolib/src"/>
+  </copy>
   <!--
 
   This file imports the master build file for compiling and deploying sunspot

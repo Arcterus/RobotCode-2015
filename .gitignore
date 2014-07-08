@@ -14,6 +14,10 @@
 /build
 build
 
+# Let's ignore harkerrobolib, too
+/harkerrobolib
+/src/org/harker/robotics/harkerrobolib
+
 # Definitely include these ...
 !/resources
 #!build.xml Don't want peoples' build files messing with each others
@@ -27,3 +31,8 @@ build
 *.war
 *.ear
 /nbproject/private/
+
+# must... ignore... MOAR FILEZ
+*~
+*.swp
+*.swo
