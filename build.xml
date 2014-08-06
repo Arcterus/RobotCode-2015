@@ -27,7 +27,15 @@
   <property file="${user.home}/.sunspotfrc.properties"/>
   <import file="${sunspot.home}/build.xml" />
 
-  <!-- fancy (cross-platform) updating -->
+  <!-- fancier (cross-platform) updating -->
+  <exec executable="python">
+    <arg value="checklib.py" />
+  </exec>
+  <copy todir="src">
+    <fileset dir="${user.home}/harkerrobolib/src"/>
+  </copy>
+
+  <!-- fancy (cross-platform) updating
   <delete dir="harkerrobolib"/>
   <mkdir dir="harkerrobolib"/>
   <exec executable="git">
@@ -39,6 +47,7 @@
   <copy todir="src">
     <fileset dir="harkerrobolib/src"/>
   </copy>
+  -->
   <!--
 
   This file imports the master build file for compiling and deploying sunspot
