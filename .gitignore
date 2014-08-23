@@ -15,8 +15,10 @@
 build
 
 # Let's ignore harkerrobolib, too
-/harkerrobolib
 /src/org/harker/robotics/harkerrobolib
+
+# Don't need sunspotfrcsdk
+/sunspotfrcsdk
 
 # Definitely include these ...
 !/resources
